@@ -7,12 +7,12 @@ Utilities to work with Flutter monorepo projects.
 
 TODO:
  - [x] Run tests (context menu)
- - [] Improve context menu location and package name
- - [] Run ALL tests (context menu)
- - [] Run get/clean/build_runner (context menu)
- - [] Run tests when project changes
- - [] Create test file in same hierarchy
- - [] Dream: Load and watch all tests (grouped by package) in the testing tab
+ - [ ] Improve context menu location and package name
+ - [ ] Run ALL tests (context menu)
+ - [ ] Run get/clean/build_runner (context menu)
+ - [ ] Run tests when project changes
+ - [ ] Create test file in same hierarchy
+ - [ ] Dream: Load and watch all tests (grouped by package) in the testing tab
 
 
 <!-- 
