@@ -2,7 +2,7 @@
 	"name": "flutter-monorepo-utils",
 	"displayName": "flutter-monorepo-utils",
 	"description": "Utilities for Flutter monorepo projects",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"icon": "assets/logo.png",
 	"publisher": "emersonsiega",
 	"repository": "https://github.com/emersonsiega/flutter_monorepo_utils",
