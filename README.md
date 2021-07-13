@@ -1,6 +1,6 @@
 # FMU: Flutter Monorepo Utils
 
-Utilities to work with Flutter monorepo projects.  
+VSCode extension with utilities to work with Flutter monorepo projects.  
 
 
 ## Features

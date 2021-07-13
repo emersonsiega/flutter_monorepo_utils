@@ -4,6 +4,8 @@
 	"description": "Utilities for Flutter monorepo projects",
 	"version": "0.0.1",
 	"icon": "assets/logo.png",
+	"publisher": "emersonsiega",
+	"license": "",
 	"engines": {
 		"vscode": "^1.58.0"
 	},
