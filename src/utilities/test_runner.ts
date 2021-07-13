@@ -2,6 +2,8 @@ import * as vscode from 'vscode';
 import * as cp from 'child_process';
 import * as commands from '../flutter_commands';
 import { packageAlias } from '../constants';
+import * as fs from 'fs';
+
 
 function getFinalPath(path: String, split: string = '/') {
     let file: any = path.split(split);
@@ -21,6 +23,11 @@ export async function runTests(uri: vscode.Uri) {
     let testsChannel = vscode.window.createOutputChannel(`${packageAlias}: Flutter Tests`);
     testsChannel.show();
     testsChannel.appendLine(`Running ${folder.toUpperCase()} tests...`);
+
+    if (!fs.existsSync(`${uri.path}/test`)) {
+        testsChannel.appendLine(`\n🚫 The ${folder.toUpperCase()} folder is not a Flutter testable project!\n\n(Please, select a Flutter project that contains a test folder)`);
+        return;
+    }
 
     var cancelled = false;
 
