@@ -2,17 +2,23 @@ import * as vscode from 'vscode';
 import * as cp from 'child_process';
 import * as commands from '../flutter_commands';
 import { packageAlias } from '../constants';
-import * as fs from 'fs';
-
-
-function getFinalPath(path: String, split: string = '/') {
-    let file: any = path.split(split);
-    file = file[file.length - 1];
-    return file;
-}
+import { fileExists, isWindows, getFinalPath } from '../utils';
 
 export async function runTests(uri: vscode.Uri) {
+    let cancelled = false;
     let folder: String = getFinalPath(uri.path);
+
+    let testsChannel = vscode.window.createOutputChannel(`${packageAlias}: Flutter Tests`);
+    testsChannel.show();
+    testsChannel.appendLine(`Running ${folder.toUpperCase()} tests...`);
+
+    const containsTestFolder =await fileExists(`${uri.fsPath}/test`);
+    const containsPubspec =await fileExists(`${uri.fsPath}/pubspec.yaml`);
+
+    if (!containsTestFolder || !containsPubspec) {
+        testsChannel.appendLine(`\n🚫 The ${folder.toUpperCase()} folder is not a Flutter testable project!\n\n(Please, select a Flutter project that contains a test folder)`);
+        return;
+    }
 
     const opts: vscode.ProgressOptions = {
         location: vscode.ProgressLocation.Notification,
@@ -20,28 +26,22 @@ export async function runTests(uri: vscode.Uri) {
         cancellable: true
     };
 
-    let testsChannel = vscode.window.createOutputChannel(`${packageAlias}: Flutter Tests`);
-    testsChannel.show();
-    testsChannel.appendLine(`Running ${folder.toUpperCase()} tests...`);
-
-    if (!fs.existsSync(`${uri.path}/test`)) {
-        testsChannel.appendLine(`\n🚫 The ${folder.toUpperCase()} folder is not a Flutter testable project!\n\n(Please, select a Flutter project that contains a test folder)`);
-        return;
-    }
-
-    var cancelled = false;
-
     vscode.window.withProgress(opts, async (p, _token) => {
         return new Promise<void>((resolve, reject) => {
+
             const child = cp.spawn(
                 commands.runTests.command,
                 commands.runTests.args,
-                { cwd: uri.path, detached: true },
+                {
+                    cwd: uri.fsPath,
+                    shell: isWindows,
+                    detached: !isWindows,
+                },
             );
 
             _token.onCancellationRequested(() => {
                 cancelled = true;
-                cp.spawn("sh", ["-c", "kill -INT -" + child.pid]);
+                commands.killProcess(child);
 
                 testsChannel.appendLine("\n🚫 Test runner stopped by user!");
                 testsChannel.show();
@@ -50,12 +50,13 @@ export async function runTests(uri: vscode.Uri) {
 
             p.report({ increment: 0 });
 
-            child.stdout.addListener('error', (error) => {
+            child.stderr.on('data', (error) => {
                 testsChannel.appendLine(error.toString());
                 testsChannel.show();
+                resolve();
             });
 
-            child.stdout.addListener('data', (data) => {
+            child.stdout.on('data', (data) => {
                 _processResult(data.toString(), testsChannel, p);
             });
 
@@ -72,9 +73,6 @@ export async function runTests(uri: vscode.Uri) {
 
                 resolve();
             });
-
-
-
         });
     });
 
