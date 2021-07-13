@@ -33,7 +33,7 @@ export const buildRunner = {
     successMessage: "\n🎉 Build runner finished!",
     errorMessage: "\n🔥 Build runner failed!",
     channelTitle: "Build runner",
-    firstActionLog: (folder: String) => `Runing build_runner on ${folder}...\n\n`,
+    firstActionLog: (folder: String) => `Running build_runner on ${folder}...\n\n`,
     invalidFolderLog: (folder: String) => `\n🚫 The ${folder} folder is not a Flutter project!`
 };
 
