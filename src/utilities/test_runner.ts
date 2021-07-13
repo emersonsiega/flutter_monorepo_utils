@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 import * as cp from 'child_process';
 import * as commands from '../flutter_commands';
 import { packageAlias } from '../constants';
-import { fileExists, isWindows, getFinalPath } from '../utils';
+import { isWindows, getFinalPath, containsTestFolder, containsPubspec } from '../utils';
 
 export async function runTests(uri: vscode.Uri) {
     let cancelled = false;
@@ -10,15 +10,16 @@ export async function runTests(uri: vscode.Uri) {
 
     let testsChannel = vscode.window.createOutputChannel(`${packageAlias}: Flutter Tests`);
     testsChannel.show();
-    testsChannel.appendLine(`Running ${folder.toUpperCase()} tests...`);
+    testsChannel.appendLine(`Running ${folder} tests...`);
 
-    const containsTestFolder =await fileExists(`${uri.fsPath}/test`);
-    const containsPubspec =await fileExists(`${uri.fsPath}/pubspec.yaml`);
+    const isTestable = await containsTestFolder(uri);
+    const isFlutterProject = await containsPubspec(uri);
 
-    if (!containsTestFolder || !containsPubspec) {
-        testsChannel.appendLine(`\n🚫 The ${folder.toUpperCase()} folder is not a Flutter testable project!\n\n(Please, select a Flutter project that contains a test folder)`);
+    if (!isTestable || !isFlutterProject) {
+        testsChannel.appendLine(`\n🚫 The ${folder} folder is not a Flutter testable project!\n\n(Please, select a Flutter project that contains a test folder)`);
         return;
     }
+
 
     const opts: vscode.ProgressOptions = {
         location: vscode.ProgressLocation.Notification,

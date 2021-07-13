@@ -11,6 +11,15 @@ export async function fileExists(file: string) {
     }
 }
 
+
+export async function containsTestFolder(uri: vscode.Uri) {
+    return await fileExists(`${uri.fsPath}/test`);
+}
+
+export async function containsPubspec(uri: vscode.Uri) {
+    return await fileExists(`${uri.fsPath}/pubspec.yaml`);
+}
+
 export function getFinalPath(path: String, split: string = '/') {
     let file: any = path.split(split);
     file = file[file.length - 1];

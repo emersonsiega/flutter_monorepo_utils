@@ -29,6 +29,22 @@
 			{
 				"command": "flutter-monorepo-utils.runTests",
 				"title": "FMU: Run tests"
+			},
+			{
+				"command": "flutter-monorepo-utils.runPubGet",
+				"title": "FMU: Get Packages"
+			},
+			{
+				"command": "flutter-monorepo-utils.runClean",
+				"title": "FMU: Clean"
+			},
+			{
+				"command": "flutter-monorepo-utils.runBuildRunner",
+				"title": "FMU: Run build_runner"
+			},
+			{
+				"command": "flutter-monorepo-utils.runBuildRunnerDeleteConflicting",
+				"title": "FMU: Run build_runner --delete-conflicting"
 			}
 		],
 		"menus": {
@@ -36,6 +52,26 @@
 				{
 					"command": "flutter-monorepo-utils.runTests",
 					"group": "fmu@1",
+					"when": "explorerResourceIsFolder"
+				},
+				{
+					"command": "flutter-monorepo-utils.runPubGet",
+					"group": "fmu@2",
+					"when": "explorerResourceIsFolder"
+				},
+				{
+					"command": "flutter-monorepo-utils.runClean",
+					"group": "fmu@3",
+					"when": "explorerResourceIsFolder"
+				},
+				{
+					"command": "flutter-monorepo-utils.runBuildRunner",
+					"group": "fmu@4",
+					"when": "explorerResourceIsFolder"
+				},
+				{
+					"command": "flutter-monorepo-utils.runBuildRunnerDeleteConflicting",
+					"group": "fmu@5",
 					"when": "explorerResourceIsFolder"
 				}
 			]

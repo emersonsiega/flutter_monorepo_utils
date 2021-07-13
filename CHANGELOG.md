@@ -2,6 +2,10 @@
 
 All notable changes to the "flutter-monorepo-utils" extension will be documented in this file.
 
+## [0.0.3] - 13/07/2021
+
+- Context menu option to run get, clean and build_runner commands
+
 ## [0.0.2] - 13/07/2021
 
 - Adds a validation to check the selected folder before execute the test commands
