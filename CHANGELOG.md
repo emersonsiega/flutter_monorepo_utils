@@ -2,8 +2,10 @@
 
 All notable changes to the "flutter-monorepo-utils" extension will be documented in this file.
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+## [0.0.2] - 13/07/2021
+- Adds a validation to the check the selected folder before execute the test commands
+- Improve Test runner documentation
 
-## [Unreleased]
+## [0.0.1] - 13/07/2021
 
-- Initial release
+- Initial release with Test runner
