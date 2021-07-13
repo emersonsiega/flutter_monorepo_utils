@@ -3,6 +3,7 @@
 	"displayName": "flutter-monorepo-utils",
 	"description": "Utilities for Flutter monorepo projects",
 	"version": "0.0.1",
+	"icon": "assets/logo.png",
 	"engines": {
 		"vscode": "^1.58.0"
 	},
@@ -26,7 +27,7 @@
 			"explorer/context": [
 				{
 					"command": "flutter-monorepo-utils.runTests",
-					"group": "7_modification",
+					"group": "fmu@1",
 					"when": "explorerResourceIsFolder"
 				}
 			]
