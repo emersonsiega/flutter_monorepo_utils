@@ -5,9 +5,10 @@ Utilities to work with Flutter monorepo projects.
 
 ## Features
 
+ - Run tests on specific project by context menu
+
+
 TODO:
- - [x] Run tests (context menu)
- - [ ] Improve context menu location and package name
  - [ ] Run ALL tests (context menu)
  - [ ] Run get/clean/build_runner (context menu)
  - [ ] Run tests when project changes
