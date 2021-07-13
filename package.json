@@ -1,5 +1,5 @@
 {
-  "name": "flutter-monorepo-utils",
+	"name": "flutter-monorepo-utils",
 	"displayName": "flutter-monorepo-utils",
 	"description": "Utilities for Flutter monorepo projects",
 	"version": "0.0.1",
@@ -10,12 +10,17 @@
 	"engines": {
 		"vscode": "^1.58.0"
 	},
+	"keywords": [
+		"flutter",
+		"monorepo",
+		"micro"
+	],
 	"categories": [
 		"Programming Languages",
 		"Other"
 	],
 	"activationEvents": [
-        "workspaceContains:**/pubspec.yaml",
+		"workspaceContains:**/pubspec.yaml",
 		"onCommand:flutter-monorepo-utils.runTests"
 	],
 	"main": "./out/extension.js",
