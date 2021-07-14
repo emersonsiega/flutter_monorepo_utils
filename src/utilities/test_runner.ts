@@ -2,13 +2,64 @@ import * as vscode from 'vscode';
 import * as cp from 'child_process';
 import * as commands from '../flutter_commands';
 import { packageAlias } from '../constants';
-import { isWindows, getFinalPath, containsTestFolder, containsPubspec } from '../utils';
+import { isWindows, getFinalPath, containsTestFolder, containsPubspec, getWorkspaceTestFiles } from '../utils';
 
-export async function runTests(uri: vscode.Uri) {
+export async function runAllTests() {
+    let files = await getWorkspaceTestFiles();
+
+    if (files.length <= 0) {
+        await vscode.window.showWarningMessage("Can't find Flutter tests in the current workspace...");
+        return;
+    }
+
+    const opts: vscode.ProgressOptions = {
+        location: vscode.ProgressLocation.Notification,
+        title: `Running test suite`,
+        cancellable: false,
+    };
+
+    let channel = vscode.window.createOutputChannel(`${packageAlias}: Flutter Tests`);
+
+    await vscode.window.withProgress(opts, async (p, _token) => {
+        let errors: string[] = [];
+        const unit = 100 / files.length;
+        p.report({ increment: 0 });
+
+        for (let index = 0; index < files.length; index++) {
+            const file = files[index];
+            const projectPath = vscode.Uri.file(file.fsPath.split('/test/')[0]);
+
+            let folder = getFinalPath(projectPath.fsPath);
+            p.report({ message: `${index + 1}/${files.length} Running ${folder} tests` });
+
+            channel.appendLine('--------------------');
+            let result = await runTests(projectPath, channel);
+            channel.appendLine('\n\n');
+
+            p.report({ increment: unit });
+
+            if (!result) {
+                errors.push(folder);
+            }
+        }
+
+        channel.appendLine('\n\n');
+        if (errors.length > 0) {
+            let error = errors.reduce((acc, error, index) => `${acc}${index === errors.length - 1 ? ' and' : ','} ${error}`);
+            channel.appendLine(`🔥 ${error} ${errors.length === 1 ? 'suite' : 'suites'} failed!`);
+        } else {
+            channel.appendLine(`✅ Test suites finished without errors!`);
+        }
+
+    });
+
+}
+
+export async function runTests(uri: vscode.Uri, outputChannel?: vscode.OutputChannel) {
     let cancelled = false;
     let folder: String = getFinalPath(uri.path);
 
-    let testsChannel = vscode.window.createOutputChannel(`${packageAlias}: Flutter Tests`);
+    let testsChannel = outputChannel ?? vscode.window.createOutputChannel(`${packageAlias}: Flutter Tests`);
     testsChannel.show();
     testsChannel.appendLine(`Running ${folder} tests...`);
 
@@ -27,8 +78,8 @@ export async function runTests(uri: vscode.Uri) {
         cancellable: true
     };
 
-    vscode.window.withProgress(opts, async (p, _token) => {
-        return new Promise<void>((resolve, reject) => {
+    return await vscode.window.withProgress(opts, async (p, _token) => {
+        return new Promise<boolean>((resolve, reject) => {
 
             const child = cp.spawn(
                 commands.runTests.command,
@@ -54,7 +105,7 @@ export async function runTests(uri: vscode.Uri) {
             child.stderr.on('data', (error) => {
                 testsChannel.appendLine(error.toString());
                 testsChannel.show();
-                resolve();
+                resolve(false);
             });
 
             child.stdout.on('data', (data) => {
@@ -66,13 +117,14 @@ export async function runTests(uri: vscode.Uri) {
                     if (code !== 0) {
                         testsChannel.appendLine("🔥 Test runner failed!");
                         testsChannel.show();
+                        resolve(false);
                     } else {
                         testsChannel.appendLine("🎉 Test runner finished!");
                         testsChannel.show();
+                        resolve(true);
                     }
                 }
 
-                resolve();
             });
         });
     });

@@ -31,6 +31,10 @@
 				"title": "FMU: Run tests"
 			},
 			{
+				"command": "flutter-monorepo-utils.runAllTests",
+				"title": "FMU: Run all tests"
+			},
+			{
 				"command": "flutter-monorepo-utils.runPubGet",
 				"title": "FMU: Get Packages"
 			},
@@ -52,27 +56,32 @@
 				{
 					"command": "flutter-monorepo-utils.runTests",
 					"group": "fmu@1",
-					"when": "explorerResourceIsFolder"
+					"when": "explorerResourceIsFolder && resourceFilename =~ /^(?!\\.)\\w+$/"
+				},
+				{
+					"command": "flutter-monorepo-utils.runAllTests",
+					"group": "fmu@2",
+					"when": "explorerResourceIsRoot"
 				},
 				{
 					"command": "flutter-monorepo-utils.runPubGet",
-					"group": "fmu@2",
-					"when": "explorerResourceIsFolder"
+					"group": "fmu@3",
+					"when": "explorerResourceIsFolder && resourceFilename =~ /^(?!\\.)\\w+$/"
 				},
 				{
 					"command": "flutter-monorepo-utils.runClean",
-					"group": "fmu@3",
-					"when": "explorerResourceIsFolder"
+					"group": "fmu@4",
+					"when": "explorerResourceIsFolder && resourceFilename =~ /^(?!\\.)\\w+$/"
 				},
 				{
 					"command": "flutter-monorepo-utils.runBuildRunner",
-					"group": "fmu@4",
-					"when": "explorerResourceIsFolder"
+					"group": "fmu@5",
+					"when": "explorerResourceIsFolder && resourceFilename =~ /^(?!\\.)\\w+$/"
 				},
 				{
 					"command": "flutter-monorepo-utils.runBuildRunnerDeleteConflicting",
-					"group": "fmu@5",
-					"when": "explorerResourceIsFolder"
+					"group": "fmu@6",
+					"when": "explorerResourceIsFolder && resourceFilename =~ /^(?!\\.)\\w+$/"
 				}
 			]
 		}

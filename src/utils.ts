@@ -25,3 +25,7 @@ export function getFinalPath(path: String, split: string = '/') {
     file = file[file.length - 1];
     return file;
 }
+
+export async function getWorkspaceTestFiles() { 
+    return await vscode.workspace.findFiles('{*/test/*_test.dart}', '.*');
+}
