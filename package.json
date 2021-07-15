@@ -65,6 +65,10 @@
 			{
 				"command": "flutter-monorepo-utils.runBuildRunnerDeleteConflicting",
 				"title": "FMU: Run build_runner --delete-conflicting"
+			},
+			{
+				"command": "flutter-monorepo-utils.createOrOpenTestFile",
+				"title": "FMU: Create/Open test file"
 			}
 		],
 		"menus": {
@@ -97,27 +101,32 @@
 				{
 					"command": "flutter-monorepo-utils.runTests",
 					"group": "fmu@1",
-					"when": "explorerResourceIsFolder && resourceFilename =~ /^(?!\\.)\\w+$/"
+					"when": "!explorerResourceIsRoot && explorerResourceIsFolder && resourceFilename =~ /^(?!\\.)\\w+$/"
 				},
 				{
 					"command": "flutter-monorepo-utils.runPubGet",
 					"group": "fmu@2",
-					"when": "explorerResourceIsFolder && resourceFilename =~ /^(?!\\.)\\w+$/"
+					"when": "!explorerResourceIsRoot && explorerResourceIsFolder && resourceFilename =~ /^(?!\\.)\\w+$/"
 				},
 				{
 					"command": "flutter-monorepo-utils.runClean",
 					"group": "fmu@3",
-					"when": "explorerResourceIsFolder && resourceFilename =~ /^(?!\\.)\\w+$/"
+					"when": "!explorerResourceIsRoot && explorerResourceIsFolder && resourceFilename =~ /^(?!\\.)\\w+$/"
 				},
 				{
 					"command": "flutter-monorepo-utils.runBuildRunner",
 					"group": "fmu@4",
-					"when": "explorerResourceIsFolder && resourceFilename =~ /^(?!\\.)\\w+$/"
+					"when": "!explorerResourceIsRoot && explorerResourceIsFolder && resourceFilename =~ /^(?!\\.)\\w+$/"
 				},
 				{
 					"command": "flutter-monorepo-utils.runBuildRunnerDeleteConflicting",
 					"group": "fmu@5",
-					"when": "explorerResourceIsFolder && resourceFilename =~ /^(?!\\.)\\w+$/"
+					"when": "!explorerResourceIsRoot && explorerResourceIsFolder && resourceFilename =~ /^(?!\\.)\\w+$/"
+				},
+				{
+					"command": "flutter-monorepo-utils.createOrOpenTestFile",
+					"group": "fmu@1",
+					"when": "resourceExtname == .dart && resourceFilename =~ /^((?!_test).)*$/"
 				}
 			]
 		}

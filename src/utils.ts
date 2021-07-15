@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import * as fs from 'fs';
 
 export const isWindows: boolean = process.platform === 'win32';
 
@@ -24,6 +25,51 @@ export function getFinalPath(path: String, split: string = '/') {
     let file: any = path.split(split);
     file = file[file.length - 1];
     return file;
+}
+
+export function getCurrentPath(path: String) {
+    let file: any = path.split('/lib/');
+    file = file[file.length - 1];
+    return file;
+}
+
+export function getProjectPath(path: String) {
+    let file: string[] = path.split('/lib/');
+    return file[0];
+}
+
+export function getTestFilePath(projectPath: string, fileLocation: string, fileName: string) {
+    return vscode.Uri.joinPath(vscode.Uri.file(projectPath), 'test', fileLocation, fileName.replace('.dart', '_test.dart'));
+}
+
+export async function verifyTestFilePresence(testFilePath: vscode.Uri) {
+    return await fileExists(testFilePath.fsPath);
+}
+
+export function newTestFileContent() {
+    return `import 'package:flutter_test/flutter_test.dart';
+
+void main() {
+  setUp(() {
+    //
+  });
+
+  test('', () {
+    //
+  });
+}`;
+}
+
+export async function createTestFileWithCompletePath(testFile: vscode.Uri, fileName: string) {
+    let fileNameWithoutExt = fileName.replace('.dart', '');
+    let completePath = testFile.fsPath.split(`/${fileNameWithoutExt}`)[0];
+    let exists = await fileExists(completePath);
+
+    if (!exists) {
+        fs.mkdirSync(completePath, {recursive: true});
+    }
+
+    fs.writeFileSync(testFile.fsPath, newTestFileContent(), 'utf8');
 }
 
 export async function getWorkspaceTestFiles() { 

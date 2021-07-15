@@ -11,6 +11,7 @@ import {
 	runClean,
 	runPubGet,
 } from './utilities/simple_commands_runner';
+import { createOrOpenTestFile } from './utilities/test_file_manager';
 
 export function activate(context: vscode.ExtensionContext) {
 
@@ -27,6 +28,9 @@ export function activate(context: vscode.ExtensionContext) {
 	registerRunCleanContextMenu(context);
 	registerRunBuildRunnerContextMenu(context);
 	registerRunBuildRunnerDeleteConflictingContextMenu(context);
+
+	// File actions
+	registerCreateOrOpenTestContextMenu(context);
 }
 
 function registerRunAllTestsContextMenu(context: vscode.ExtensionContext) {
@@ -87,5 +91,11 @@ function registerRunBuildRunnerContextMenu(context: vscode.ExtensionContext) {
 function registerRunBuildRunnerDeleteConflictingContextMenu(context: vscode.ExtensionContext) {
 	context.subscriptions.push(
 		vscode.commands.registerCommand(`${packageIdentifier}.runBuildRunnerDeleteConflicting`, runBuildRunnerDeleteConflicting)
+	);
+}
+
+function registerCreateOrOpenTestContextMenu(context: vscode.ExtensionContext) {
+	context.subscriptions.push(
+		vscode.commands.registerCommand(`${packageIdentifier}.createOrOpenTestFile`, createOrOpenTestFile)
 	);
 }

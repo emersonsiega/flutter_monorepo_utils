@@ -2,6 +2,11 @@
 
 All notable changes to the "flutter-monorepo-utils" extension will be documented in this file.
 
+## [0.0.5] - 15/07/2021
+
+- Context menu option to create or open the test file
+- Fix rules to show/hide context menu options
+
 ## [0.0.4] - 15/07/2021
 
 - Context menu option to run tests in all projects
