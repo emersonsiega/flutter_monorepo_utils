@@ -27,16 +27,32 @@
 	"contributes": {
 		"commands": [
 			{
+				"command": "flutter-monorepo-utils.runAllTests",
+				"title": "FMU: Run tests in all projects"
+			},
+			{
+				"command": "flutter-monorepo-utils.runAllPubGet",
+				"title": "FMU: Get packages in all projects"
+			},
+			{
+				"command": "flutter-monorepo-utils.runAllClean",
+				"title": "FMU: Run clean in all projects"
+			},
+			{
+				"command": "flutter-monorepo-utils.runAllBuildRunner",
+				"title": "FMU: Run build_runner in all projects"
+			},
+			{
+				"command": "flutter-monorepo-utils.runAllBuildRunnerDeleteConflicting",
+				"title": "FMU: Run build_runner --delete-conflicting in all projects"
+			},
+			{
 				"command": "flutter-monorepo-utils.runTests",
 				"title": "FMU: Run tests"
 			},
 			{
-				"command": "flutter-monorepo-utils.runAllTests",
-				"title": "FMU: Run all tests"
-			},
-			{
 				"command": "flutter-monorepo-utils.runPubGet",
-				"title": "FMU: Get Packages"
+				"title": "FMU: Get packages"
 			},
 			{
 				"command": "flutter-monorepo-utils.runClean",
@@ -54,33 +70,53 @@
 		"menus": {
 			"explorer/context": [
 				{
+					"command": "flutter-monorepo-utils.runAllTests",
+					"group": "fmu@1",
+					"when": "explorerResourceIsRoot"
+				},
+				{
+					"command": "flutter-monorepo-utils.runAllPubGet",
+					"group": "fmu@2",
+					"when": "explorerResourceIsRoot"
+				},
+				{
+					"command": "flutter-monorepo-utils.runAllClean",
+					"group": "fmu@3",
+					"when": "explorerResourceIsRoot"
+				},
+				{
+					"command": "flutter-monorepo-utils.runAllBuildRunner",
+					"group": "fmu@4",
+					"when": "explorerResourceIsRoot"
+				},
+				{
+					"command": "flutter-monorepo-utils.runAllBuildRunnerDeleteConflicting",
+					"group": "fmu@5",
+					"when": "explorerResourceIsRoot"
+				},
+				{
 					"command": "flutter-monorepo-utils.runTests",
 					"group": "fmu@1",
 					"when": "explorerResourceIsFolder && resourceFilename =~ /^(?!\\.)\\w+$/"
 				},
 				{
-					"command": "flutter-monorepo-utils.runAllTests",
-					"group": "fmu@2",
-					"when": "explorerResourceIsRoot"
-				},
-				{
 					"command": "flutter-monorepo-utils.runPubGet",
-					"group": "fmu@3",
+					"group": "fmu@2",
 					"when": "explorerResourceIsFolder && resourceFilename =~ /^(?!\\.)\\w+$/"
 				},
 				{
 					"command": "flutter-monorepo-utils.runClean",
-					"group": "fmu@4",
+					"group": "fmu@3",
 					"when": "explorerResourceIsFolder && resourceFilename =~ /^(?!\\.)\\w+$/"
 				},
 				{
 					"command": "flutter-monorepo-utils.runBuildRunner",
-					"group": "fmu@5",
+					"group": "fmu@4",
 					"when": "explorerResourceIsFolder && resourceFilename =~ /^(?!\\.)\\w+$/"
 				},
 				{
 					"command": "flutter-monorepo-utils.runBuildRunnerDeleteConflicting",
-					"group": "fmu@6",
+					"group": "fmu@5",
 					"when": "explorerResourceIsFolder && resourceFilename =~ /^(?!\\.)\\w+$/"
 				}
 			]

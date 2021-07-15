@@ -13,7 +13,7 @@ export const getPackages = {
     successMessage: "\n🎉 Packages get finished!",
     errorMessage: "\n🔥 Packages get failed!",
     channelTitle: "Flutter Packages Get",
-    firstActionLog: (folder: String) => `Getting packages on ${folder}...\n\n`,
+    firstActionLog: (folder: String) => `Getting packages in ${folder}...\n\n`,
     invalidFolderLog: (folder: String) => `\n🚫 The ${folder} folder is not a Flutter project!`
 };
 
@@ -23,7 +23,7 @@ export const cleanProject = {
     successMessage: "\n🎉 Flutter clean finished!",
     errorMessage: "\n🔥 Flutter clean failed!",
     channelTitle: "Flutter clean",
-    firstActionLog: (folder: String) => `Cleaning project ${folder}...\n\n`,
+    firstActionLog: (folder: String) => `Running Flutter clean in ${folder}...\n\n`,
     invalidFolderLog: (folder: String) => `\n🚫 The ${folder} folder is not a Flutter project!`
 };
 
@@ -33,7 +33,7 @@ export const buildRunner = {
     successMessage: "\n🎉 Build runner finished!",
     errorMessage: "\n🔥 Build runner failed!",
     channelTitle: "Build runner",
-    firstActionLog: (folder: String) => `Running build_runner on ${folder}...\n\n`,
+    firstActionLog: (folder: String) => `Running build_runner in ${folder}...\n\n`,
     invalidFolderLog: (folder: String) => `\n🚫 The ${folder} folder is not a Flutter project!`
 };
 

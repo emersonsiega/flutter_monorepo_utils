@@ -29,3 +29,7 @@ export function getFinalPath(path: String, split: string = '/') {
 export async function getWorkspaceTestFiles() { 
     return await vscode.workspace.findFiles('{*/test/*_test.dart}', '.*');
 }
+
+export async function getWorkspaceFlutterProjects() { 
+    return await vscode.workspace.findFiles('{*/pubspec.yaml}', '.*');
+}

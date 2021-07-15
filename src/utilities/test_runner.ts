@@ -2,10 +2,10 @@ import * as vscode from 'vscode';
 import * as cp from 'child_process';
 import * as commands from '../flutter_commands';
 import { packageAlias } from '../constants';
-import { isWindows, getFinalPath, containsTestFolder, containsPubspec, getWorkspaceTestFiles } from '../utils';
+import { isWindows, getFinalPath, containsTestFolder, containsPubspec } from '../utils';
 
 export async function runAllTests() {
-    let files = await getWorkspaceTestFiles();
+    let files = await vscode.workspace.findFiles('{*/test/*_test.dart}', '.*');
 
     if (files.length <= 0) {
         await vscode.window.showWarningMessage("Can't find Flutter tests in the current workspace...");
