@@ -3,7 +3,7 @@
 VSCode extension with utilities to work with Flutter monorepo projects.  
 
 
-## [Get it on the Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=emersonsiega.flutter-monorepo-utils)
+### [Get it on the Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=emersonsiega.flutter-monorepo-utils)
 
 
 ## Features
