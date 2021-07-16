@@ -2,6 +2,10 @@
 
 All notable changes to the "flutter-monorepo-utils" extension will be documented in this file.
 
+## [0.0.6] - 16/07/2021
+
+- Fix test, get, clean, build_runner and test file creation for all projects in Windows
+
 ## [0.0.5] - 15/07/2021
 
 - Context menu option to create or open the test file
