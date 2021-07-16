@@ -3,6 +3,7 @@ import * as cp from 'child_process';
 import * as commands from '../flutter_commands';
 import { packageAlias } from '../constants';
 import { isWindows, getFinalPath, containsTestFolder, containsPubspec } from '../utils';
+import { sep } from 'path';
 
 export async function runAllTests() {
     let files = await vscode.workspace.findFiles('{*/test/*_test.dart}', '.*');
@@ -27,7 +28,7 @@ export async function runAllTests() {
 
         for (let index = 0; index < files.length; index++) {
             const file = files[index];
-            const projectPath = vscode.Uri.file(file.fsPath.split('/test/')[0]);
+            const projectPath = vscode.Uri.file(file.fsPath.split(`${sep}test${sep}`)[0]);
 
             let folder = getFinalPath(projectPath.fsPath);
             p.report({ message: `${index + 1}/${files.length} Running ${folder} tests` });

@@ -3,6 +3,7 @@ import * as cp from 'child_process';
 import * as commands from '../flutter_commands';
 import { packageAlias } from '../constants';
 import { isWindows, getFinalPath, containsPubspec, getWorkspaceFlutterProjects } from '../utils';
+import { sep } from 'path';
 
 export async function runPubGet(uri: vscode.Uri) {
     return await _runCommand(uri, commands.getPackages);
@@ -39,7 +40,7 @@ export async function _runCommandAllProjects(command: any) {
     channel.appendLine(command.firstActionLog('all projects'));
 
     await Promise.all(projects.map((file) => {
-        const projectPath = vscode.Uri.file(file.fsPath.replace('/pubspec.yaml', ''));
+        const projectPath = vscode.Uri.file(file.fsPath.replace(`${sep}pubspec.yaml`, ''));
 
         return _runCommand(projectPath, command, true, channel);
     }));

@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
+import { sep } from 'path';
 
 export const isWindows: boolean = process.platform === 'win32';
 
@@ -28,13 +29,13 @@ export function getFinalPath(path: String, split: string = '/') {
 }
 
 export function getCurrentPath(path: String) {
-    let file: any = path.split('/lib/');
+    let file: any = path.split(`${sep}lib${sep}`);
     file = file[file.length - 1];
     return file;
 }
 
 export function getProjectPath(path: String) {
-    let file: string[] = path.split('/lib/');
+    let file: string[] = path.split(`${sep}lib${sep}`);
     return file[0];
 }
 
@@ -62,7 +63,7 @@ void main() {
 
 export async function createTestFileWithCompletePath(testFile: vscode.Uri, fileName: string) {
     let fileNameWithoutExt = fileName.replace('.dart', '');
-    let completePath = testFile.fsPath.split(`/${fileNameWithoutExt}`)[0];
+    let completePath = testFile.fsPath.split(`${sep}${fileNameWithoutExt}`)[0];
     let exists = await fileExists(completePath);
 
     if (!exists) {

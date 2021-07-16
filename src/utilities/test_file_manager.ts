@@ -1,12 +1,13 @@
 import * as vscode from 'vscode';
 import { createTestFileWithCompletePath, getCurrentPath, getProjectPath, getTestFilePath, newTestFileContent, verifyTestFilePresence } from '../utils';
+import { sep } from 'path';
 
 export async function createOrOpenTestFile(uri: vscode.Uri) {
     let projectPath: string = getProjectPath(uri.fsPath);
     let currentPath: string = getCurrentPath(uri.fsPath);
 
     let fileName: string = '';
-    let parts: string[] = currentPath.split('/');
+    let parts: string[] = currentPath.split(sep);
     fileName = parts[parts.length === 1 ? 0 : parts.length - 1];
 
     let fileLocation = currentPath.replace(`${fileName}`, '');
